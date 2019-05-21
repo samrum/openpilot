@@ -341,7 +341,7 @@ def manager_thread():
     else:
       start_managed_process("uploader")
 
-    if msg.thermal.freeSpace < 0.18:
+    if msg.thermal.freeSpace < 0.05:
       logger_dead = True
 
     if msg.thermal.started:
