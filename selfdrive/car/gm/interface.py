@@ -5,7 +5,8 @@ from selfdrive.controls.lib.drive_helpers import create_event, EventTypes as ET
 from selfdrive.controls.lib.vehicle_model import VehicleModel
 from selfdrive.car.gm.values import DBC, CAR, ECU, ECU_FINGERPRINT, \
                                     SUPERCRUISE_CARS, AccState, FINGERPRINTS
-from selfdrive.car.gm.carstate import CarState, CruiseButtons, get_powertrain_can_parser
+from selfdrive.car.gm.carstate import CarState, CruiseButtons, \
+                                      AccState, get_powertrain_can_parser
 from selfdrive.car import STD_CARGO_KG, scale_rot_inertia, scale_tire_stiffness, is_ecu_disconnected, gen_empty_fingerprint
 from selfdrive.car.interfaces import CarInterfaceBase
 
@@ -64,8 +65,12 @@ class CarInterface(CarInterfaceBase):
     ret.safetyModelPassive = car.CarParams.SafetyModel.gmPassive
 
     if candidate == CAR.VOLT:
-      # supports stop and go, but initial engage must be above 18mph (which include conservatism)
-      ret.minEnableSpeed = 18 * CV.MPH_TO_MS
+      # initial engage must be above ~18mph, and resume
+      # can happen at any speed, unless brake pedal was pressed,
+      # in which case resume can only happen above ~7mph.
+      # TODO: track PCM state to know exactly when set/res are allowed,
+      # instead of disengaging on a PCM fault.
+      ret.minEnableSpeed = -1
       ret.mass = 1607. + STD_CARGO_KG
       ret.safetyModel = car.CarParams.SafetyModel.gm
       ret.wheelbase = 2.69
@@ -210,9 +215,9 @@ class CarInterface(CarInterfaceBase):
 
     # cruise state
     ret.cruiseState.available = bool(self.CS.main_on)
-    cruiseEnabled = self.CS.pcm_acc_status != AccState.OFF
+    cruiseEnabled = self.CS.pcm_acc_status in [AccState.ACTIVE, AccState.STANDSTILL]
     ret.cruiseState.enabled = cruiseEnabled
-    ret.cruiseState.standstill = False
+    ret.cruiseState.standstill = self.CS.pcm_acc_status == AccState.STANDSTILL
 
     ret.leftBlinker = self.CS.left_blinker_on
     ret.rightBlinker = self.CS.right_blinker_on
