@@ -6,7 +6,7 @@ from opendbc.can.parser import CANParser
 from selfdrive.car.interfaces import CarStateBase
 from selfdrive.car.gm.values import DBC, CAR, AccState, CanBus, \
                                     CruiseButtons, is_eps_status_ok, \
-                                    STEER_THRESHOLD, AccState
+                                    STEER_THRESHOLD
 
 
 class CarState(CarStateBase):
