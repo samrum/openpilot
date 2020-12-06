@@ -160,7 +160,9 @@ class CarInterface(CarInterfaceBase):
     if self.CS.pcm_acc_status == AccState.FAULTED:
       events.add(EventName.controlsFailed)
     if ret.vEgo < self.CP.minSteerSpeed:
-      events.add(car.CarEvent.EventName.belowSteerSpeed)
+      events.add(EventName.belowSteerSpeed)
+    if ret.brakeHold:
+      events.add(EventName.brakeHold)
 
     # handle button presses
     for b in ret.buttonEvents:
