@@ -93,14 +93,20 @@ class CarController():
 
       car_stopping = apply_gas < P.ZERO_GAS
       standstill = CS.pcm_acc_status == AccState.STANDSTILL
-      at_full_stop = enabled and standstill and car_stopping
-      near_stop = enabled and (CS.out.vEgo < P.NEAR_STOP_BRAKE_PHASE) and car_stopping
+
+      at_full_stop = standstill and car_stopping
+      near_stop = (CS.out.vEgo < P.NEAR_STOP_BRAKE_PHASE) and car_stopping
+
+      enable_brake_hold = CS.out.cruiseState.available and CS.out.gearShifter == 'drive' and at_full_stop and not CS.regenPaddlePressed
+
+      at_full_stop = (enabled or enable_brake_hold) and at_full_stop
+      near_stop = (enabled or enable_brake_hold) and near_stop
+
       can_sends.append(gmcan.create_friction_brake_command(self.packer_ch, CanBus.CHASSIS, apply_brake, idx, near_stop, at_full_stop))
 
       # Auto-resume from full stop by resetting ACC control
-      acc_enabled = enabled
-      if standstill and not car_stopping:
-        acc_enabled = False
+      acc_enabled = enabled and not (standstill and not car_stopping)
+      at_full_stop = enabled and at_full_stop
 
       can_sends.append(gmcan.create_gas_regen_command(self.packer_pt, CanBus.POWERTRAIN, apply_gas, idx, acc_enabled, at_full_stop))
 
