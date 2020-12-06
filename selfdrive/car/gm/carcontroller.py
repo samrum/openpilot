@@ -97,7 +97,7 @@ class CarController():
       at_full_stop = standstill and car_stopping
       near_stop = (CS.out.vEgo < P.NEAR_STOP_BRAKE_PHASE) and car_stopping
 
-      enable_brake_hold = CS.out.cruiseState.available and CS.out.gearShifter == 'drive' and at_full_stop and not CS.regenPaddlePressed
+      enable_brake_hold = CS.out.cruiseState.available and CS.out.gearShifter == 'drive' and CS.out.standstill and not CS.out.regenPaddlePressed
 
       at_full_stop = (enabled or enable_brake_hold) and at_full_stop
       near_stop = (enabled or enable_brake_hold) and near_stop
