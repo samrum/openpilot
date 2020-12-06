@@ -107,7 +107,6 @@ class CarController():
 
         # Auto-resume from full stop by resetting ACC control
         acc_enabled = enabled and not (standstill and not car_stopping)
-        at_full_stop = enabled and at_full_stop
 
         can_sends.append(gmcan.create_gas_regen_command(self.packer_pt, CanBus.POWERTRAIN, apply_gas, idx, acc_enabled, at_full_stop))
 
