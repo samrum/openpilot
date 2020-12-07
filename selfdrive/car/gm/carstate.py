@@ -72,8 +72,6 @@ class CarState(CarStateBase):
     self.lkas_status = pt_cp.vl["PSCMStatus"]['LKATorqueDeliveredStatus']
     ret.steerWarning = self.lkas_status not in [0, 1]
 
-    self.brakeHold = ret.cruiseState.available and not ret.cruiseState.enabled and ret.gearShifter == 'drive' and ret.standstill and not (ret.gasPressed or self.regenPaddlePressed)
-
     return ret
 
   @staticmethod
