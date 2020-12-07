@@ -312,7 +312,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   EventName.brakeHold: {
     ET.PERMANENT: Alert(
       "Brake Hold",
-      "Press Regen or Gas to Release",
+      "Hold Regen Paddle or Press Gas to Release",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
   },
