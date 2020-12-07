@@ -309,6 +309,14 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.chimePrompt, 1., 2., 3.),
   },
 
+  EventName.brakeHold: {
+    ET.PERMANENT: Alert(
+      "Brake Hold",
+      "Press Regen or Gas to Release",
+      AlertStatus.normal, AlertSize.mid,
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
+  },
+
   # ********** events only containing alerts that display while engaged **********
 
   EventName.gasPressed: {
@@ -475,11 +483,6 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.buttonCancel: {
     ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeDisengage),
-  },
-
-  EventName.brakeHold: {
-    ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeDisengage),
-    ET.NO_ENTRY: NoEntryAlert("Brake Hold Active"),
   },
 
   EventName.parkBrake: {
