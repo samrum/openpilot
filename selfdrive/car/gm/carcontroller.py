@@ -97,7 +97,7 @@ class CarController():
       at_full_stop = standstill and car_stopping
       near_stop = (CS.out.vEgo < P.NEAR_STOP_BRAKE_PHASE) and car_stopping
 
-      if CS.out.brakeHold:
+      if CS.brakeHold:
         can_sends.append(gmcan.create_friction_brake_command(self.packer_ch, CanBus.CHASSIS, apply_brake, idx, near_stop, at_full_stop))
       else:
         at_full_stop = enabled and at_full_stop
