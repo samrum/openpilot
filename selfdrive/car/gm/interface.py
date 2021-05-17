@@ -158,7 +158,7 @@ class CarInterface(CarInterfaceBase):
     if self.CS.park_brake:
       events.add(EventName.parkBrake)
     if self.CS.pcm_acc_status == AccState.FAULTED:
-      events.add(EventName.controlsFailed)
+      events.add(EventName.accFaulted)
     if ret.vEgo < self.CP.minSteerSpeed:
       events.add(EventName.belowSteerSpeed)
     if self.CS.brakeHold:
