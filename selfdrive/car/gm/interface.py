@@ -157,12 +157,12 @@ class CarInterface(CarInterfaceBase):
       events.add(EventName.belowEngageSpeed)
     if self.CS.park_brake:
       events.add(EventName.parkBrake)
+    if self.CS.brakeHold:
+      events.add(EventName.brakeHold)
     if self.CS.pcm_acc_status == AccState.FAULTED:
       events.add(EventName.accFaulted)
     if ret.vEgo < self.CP.minSteerSpeed:
       events.add(EventName.belowSteerSpeed)
-    if self.CS.brakeHold:
-      events.add(EventName.brakeHold)
 
     # handle button presses
     for b in ret.buttonEvents:
