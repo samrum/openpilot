@@ -88,8 +88,8 @@ procs = [
   NativeProcess("pandad", "selfdrive/pandad", ["./pandad"], always_run, enabled=False),
   PythonProcess("calibrationd", "selfdrive.locationd.calibrationd", only_onroad),
   PythonProcess("torqued", "selfdrive.locationd.torqued", only_onroad),
-  PythonProcess("controlsd", "selfdrive.controls.controlsd", and_(not_joystick, iscar)),
-  PythonProcess("joystickd", "tools.joystick.joystickd", or_(joystick, notcar)),
+  # PythonProcess("controlsd", "selfdrive.controls.controlsd", and_(not_joystick, iscar)),
+  # PythonProcess("joystickd", "tools.joystick.joystickd", or_(joystick, notcar)),
   PythonProcess("selfdrived", "selfdrive.selfdrived.selfdrived", only_onroad),
   PythonProcess("card", "selfdrive.car.card", only_onroad),
   PythonProcess("deleter", "system.loggerd.deleter", always_run),
@@ -115,8 +115,8 @@ procs = [
   PythonProcess("joystick", "tools.joystick.joystick_control", and_(joystick, iscar)),
 
   # samrum procs
-  PythonProcess("lightshowd", "tools.lightshow.lightshowd", lightshow),
-  PythonProcess("lightshow", "tools.lightshow.lightshow_control", lightshow),
+  # PythonProcess("lightshowd", "tools.lightshow.lightshowd", lightshow),
+  # PythonProcess("lightshow", "tools.lightshow.lightshow_control", lightshow),
 ]
 
 managed_processes = {p.name: p for p in procs}
