@@ -15,10 +15,6 @@ from openpilot.tools.lib.kbhit import KBHit
 class Lightshow:
   def __init__(self):
     self.sequenceData = None
-    self.lightshowData = {
-      'headlights': False,
-      'taillights': False
-    }
 
   def readLightshowSequence(self):
     # TODO: Read lightshow sequence data from file
@@ -30,16 +26,23 @@ def exec_lightshow(lightshow):
   rk = Ratekeeper(100, print_delay_threshold=None)
 
   while True:
-    if rk.frame % 1000 == 0:
+    # max runtime of 10 seconds
+    if rk.frame >= 1000:
+      print("Finished lightshow")
       break
+
+    lightshowData = {
+      'headlights': rk.frame > 500,
+      'taillights': rk.frame > 500
+    }
 
     lightshow_msg = messaging.new_message('lightshowData')
     lightshow_msg.valid = True
-    lightshow_msg.lightshowData.headlights = rk.frame % 500 == 0
-    lightshow_msg.lightshowData.taillights = rk.frame % 500 == 0
+    lightshow_msg.lightshowData.headlights = lightshowData['headlights']
+    lightshow_msg.lightshowData.taillights = lightshowData['taillights']
 
     if rk.frame % 100 == 0:
-      print('\n' + ', '.join(f'{name}: {v}' for name, v in lightshow_msg.lightshowData.items()))
+      print('\n' + ', '.join(f'{name}: {v}' for name, v in lightshowData.items()))
 
     pm.send('lightshowData', lightshow_msg)
 
@@ -48,12 +51,15 @@ def exec_lightshow(lightshow):
 def main():
   Params().put_bool('DoLightshow', True)
 
-  lightshow = Lightshow()
-  lightshow.readLightshowSequence()
+  try:
+    lightshow = Lightshow()
+    lightshow.readLightshowSequence()
 
-  exec_lightshow(lightshow)
-
-  Params().put_bool('DoLightshow', False)
+    exec_lightshow(lightshow)
+  except Exception:
+    print("Failed to run lightshow")
+  finally:
+    Params().put_bool('DoLightshow', False)
 
 
 if __name__ == '__main__':
