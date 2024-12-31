@@ -24,11 +24,11 @@ DeveloperPanel::DeveloperPanel(SettingsWindow *parent) : ListWidget(parent) {
   });
   addItem(longManeuverToggle);
 
-  lightShowButton = new QPushButton(tr("Start Lightshow"));
-  QObject::connect(lightShowButton, &QPushButton::clicked, [=]() {
+  lightShowButton = new ButtonControl(tr("Lightshow"), tr("START"));
+  QObject::connect(lightShowButton, &ButtonControl::clicked, [=]() {
     params.putBool("DoLightshow", true);
   });
-  addItem(lightShowButton);
+  list->addItem(lightShowButton);
 
   // Joystick and longitudinal maneuvers should be hidden on release branches
   is_release = params.getBool("IsReleaseBranch");

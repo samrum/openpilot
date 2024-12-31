@@ -12,7 +12,7 @@ private:
   Params params;
   ParamControl* joystickToggle;
   ParamControl* longManeuverToggle;
-  QPushButton* lightShowButton;
+  ButtonControl* lightShowButton;
   bool is_release;
   bool offroad;
 
