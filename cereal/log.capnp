@@ -2126,8 +2126,8 @@ struct Joystick {
 }
 
 struct LightshowData {
-  headlights @0: :Bool;
-  taillights @1: :Bool;
+  headlights @0 :Bool;
+  taillights @1 :Bool;
 }
 
 struct DriverStateV2 {
