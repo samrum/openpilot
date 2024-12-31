@@ -28,7 +28,7 @@ DeveloperPanel::DeveloperPanel(SettingsWindow *parent) : ListWidget(parent) {
   QObject::connect(lightShowButton, &ButtonControl::clicked, [=]() {
     params.putBool("DoLightshow", true);
   });
-  list->addItem(lightShowButton);
+  addItem(lightShowButton);
 
   // Joystick and longitudinal maneuvers should be hidden on release branches
   is_release = params.getBool("IsReleaseBranch");
