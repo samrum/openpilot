@@ -32,7 +32,7 @@ def exec_lightshow(lightshow):
       break
 
     lightshowData = {
-      'leftBlinker': rk.frame >= 500 and rk.frame < 1000,
+      'leftBlinker': True, # rk.frame >= 500 and rk.frame < 1000,
       'rightBlinker': rk.frame >= 500 and rk.frame < 1000
     }
 
@@ -48,7 +48,10 @@ def exec_lightshow(lightshow):
 
     rk.keep_time()
 
+    break
+
 def main():
+  print("Starting lightshow")
   Params().put_bool('DoLightshow', True)
 
   try:
@@ -63,8 +66,4 @@ def main():
 
 
 if __name__ == '__main__':
-  if not Params().get_bool("IsOffroad") and "ZMQ" not in os.environ:
-    print("The car must be off before running lightshow_control.")
-    exit()
-
   main()

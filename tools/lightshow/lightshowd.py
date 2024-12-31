@@ -2,6 +2,7 @@
 
 from cereal import messaging
 from openpilot.common.realtime import Ratekeeper
+from openpilot.common.swaglog import cloudlog
 
 
 def lightshowd_thread():
