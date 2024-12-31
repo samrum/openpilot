@@ -113,6 +113,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"DisableUpdates", PERSISTENT},
     {"DisengageOnAccelerator", PERSISTENT},
     {"DongleId", PERSISTENT},
+    {"DoLightshow", CLEAR_ON_MANAGER_START},
     {"DoReboot", CLEAR_ON_MANAGER_START},
     {"DoShutdown", CLEAR_ON_MANAGER_START},
     {"DoUninstall", CLEAR_ON_MANAGER_START},

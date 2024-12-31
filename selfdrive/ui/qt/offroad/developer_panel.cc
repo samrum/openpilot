@@ -24,6 +24,12 @@ DeveloperPanel::DeveloperPanel(SettingsWindow *parent) : ListWidget(parent) {
   });
   addItem(longManeuverToggle);
 
+  lightShowButton = new QPushButton(tr("Start Lightshow"));
+  QObject::connect(lightShowButton, &QPushButton::clicked, [=](bool state) {
+    params.putBool("DoLightshow", true);
+  });
+  addItem(lightShowButton);
+
   // Joystick and longitudinal maneuvers should be hidden on release branches
   is_release = params.getBool("IsReleaseBranch");
 
@@ -36,6 +42,9 @@ void DeveloperPanel::updateToggles(bool _offroad) {
     btn->setVisible(!is_release);
     btn->setEnabled(_offroad);
   }
+
+  lightShowButton->setVisible(_offroad);
+  lightShowButton->setEnabled(_offroad);
 
   // longManeuverToggle should not be toggleable if the car don't have longitudinal control
   auto cp_bytes = params.get("CarParamsPersistent");

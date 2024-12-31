@@ -30,6 +30,9 @@ def ublox(started: bool, params: Params, CP: car.CarParams) -> bool:
     params.put_bool("UbloxAvailable", use_ublox)
   return started and use_ublox
 
+def lightshow(started: bool, params: Params, CP: car.CarParams) -> bool:
+  return started and params.get_bool("DoLightshow")
+
 def joystick(started: bool, params: Params, CP: car.CarParams) -> bool:
   return started and params.get_bool("JoystickDebugMode")
 
@@ -110,6 +113,10 @@ procs = [
   PythonProcess("webrtcd", "system.webrtc.webrtcd", notcar),
   PythonProcess("webjoystick", "tools.bodyteleop.web", notcar),
   PythonProcess("joystick", "tools.joystick.joystick_control", and_(joystick, iscar)),
+
+  # samrum procs
+  # PythonProcess("lightshowd", "tools.lightshow.lightshowd", and_(lightshow, iscar, only_offroad)),
+  PythonProcess("lightshow", "tools.lightshow.lightshow_control", and_(lightshow, iscar, only_offroad)),
 ]
 
 managed_processes = {p.name: p for p in procs}
