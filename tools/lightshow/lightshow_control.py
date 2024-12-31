@@ -32,8 +32,8 @@ def exec_lightshow(lightshow):
       break
 
     lightshowData = {
-      'headlights': rk.frame > 500,
-      'taillights': rk.frame > 500
+      'headlights': rk.frame >= 500,
+      'taillights': rk.frame >= 500
     }
 
     lightshow_msg = messaging.new_message('lightshowData')
