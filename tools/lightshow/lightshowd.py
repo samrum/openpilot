@@ -18,6 +18,7 @@ def lightshowd_thread():
     cc_msg = messaging.new_message('carControl')
     cc_msg.valid = True
     CC = cc_msg.carControl
+    CC.enabled = sm['lightshowData'].enabled
     CC.leftBlinker = sm['lightshowData'].leftBlinker
     CC.rightBlinker = sm['lightshowData'].rightBlinker
 

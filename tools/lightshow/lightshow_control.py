@@ -32,12 +32,14 @@ def exec_lightshow(lightshow):
       break
 
     lightshowData = {
+      'enabled': True,
       'leftBlinker': True, # rk.frame >= 500 and rk.frame < 1000,
       'rightBlinker': rk.frame >= 500 and rk.frame < 1000
     }
 
     lightshow_msg = messaging.new_message('lightshowData')
     lightshow_msg.valid = True
+    lightshow_msg.lightshowData.enabled = lightshowData['enabled']
     lightshow_msg.lightshowData.leftBlinker = lightshowData['leftBlinker']
     lightshow_msg.lightshowData.rightBlinker = lightshowData['rightBlinker']
 
