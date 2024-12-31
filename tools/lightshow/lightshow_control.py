@@ -27,14 +27,12 @@ def exec_lightshow(lightshow):
 
   while True:
     # max runtime of 10 seconds
-    if rk.frame > 1000:
-      print("Finished lightshow")
-      break
+    finished = rk.frame >= 1000
 
     lightshowData = {
-      'enabled': True,
-      'leftBlinker': True, # rk.frame >= 500 and rk.frame < 1000,
-      'rightBlinker': rk.frame >= 500 and rk.frame < 1000
+      'enabled': not finished,
+      'leftBlinker': True, # rk.frame >= 500,
+      'rightBlinker': rk.frame >= 500
     }
 
     lightshow_msg = messaging.new_message('lightshowData')
@@ -50,7 +48,10 @@ def exec_lightshow(lightshow):
 
     rk.keep_time()
 
-    break
+    if finished:
+      print("Finished lightshow")
+      break
+
 
 def main():
   print("Starting lightshow")
@@ -61,8 +62,8 @@ def main():
     lightshow.readLightshowSequence()
 
     exec_lightshow(lightshow)
-  except Exception:
-    print("Failed to run lightshow")
+  except Exception as e:
+    print(e)
   finally:
     Params().put_bool('DoLightshow', False)
 
