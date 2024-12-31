@@ -43,8 +43,9 @@ void DeveloperPanel::updateToggles(bool _offroad) {
     btn->setEnabled(_offroad);
   }
 
-  lightShowButton->setVisible(_offroad);
-  lightShowButton->setEnabled(_offroad);
+  // TODO: only enable if parked
+  // lightShowButton->setVisible(_offroad);
+  // lightShowButton->setEnabled(_offroad);
 
   // longManeuverToggle should not be toggleable if the car don't have longitudinal control
   auto cp_bytes = params.get("CarParamsPersistent");
