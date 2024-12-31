@@ -2126,8 +2126,9 @@ struct Joystick {
 }
 
 struct LightshowData {
-  leftBlinker @0 :Bool;
-  rightBlinker @1 :Bool;
+  enabled @0 :Bool;
+  leftBlinker @1 :Bool;
+  rightBlinker @2 :Bool;
 }
 
 struct DriverStateV2 {
