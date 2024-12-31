@@ -33,13 +33,13 @@ def exec_lightshow(lightshow):
     if rk.frame % 1000 == 0:
       break
 
-    if rk.frame % 100 == 0:
-      print("1 second?")
-
     lightshow_msg = messaging.new_message('lightshowData')
     lightshow_msg.valid = True
     lightshow_msg.lightshowData.headlights = rk.frame % 500 == 0
     lightshow_msg.lightshowData.taillights = rk.frame % 500 == 0
+
+    if rk.frame % 100 == 0:
+      print('\n' + ', '.join(f'{name}: {v}' for name, v in lightshow_msg.lightshowData.items()))
 
     pm.send('lightshowData', lightshow_msg)
 
