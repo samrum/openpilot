@@ -115,8 +115,8 @@ procs = [
   PythonProcess("joystick", "tools.joystick.joystick_control", and_(joystick, iscar)),
 
   # samrum procs
-  # PythonProcess("lightshowd", "tools.lightshow.lightshowd", and_(lightshow, iscar, only_offroad)),
-  PythonProcess("lightshow", "tools.lightshow.lightshow_control", and_(lightshow, iscar, only_offroad)),
+  # PythonProcess("lightshowd", "tools.lightshow.lightshowd", and_(lightshow, only_offroad)),
+  PythonProcess("lightshow", "tools.lightshow.lightshow_control", and_(lightshow, only_offroad)),
 ]
 
 managed_processes = {p.name: p for p in procs}
