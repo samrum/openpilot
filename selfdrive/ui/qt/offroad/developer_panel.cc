@@ -25,7 +25,7 @@ DeveloperPanel::DeveloperPanel(SettingsWindow *parent) : ListWidget(parent) {
   addItem(longManeuverToggle);
 
   lightShowButton = new QPushButton(tr("Start Lightshow"));
-  QObject::connect(lightShowButton, &QPushButton::clicked, [=]() {
+  QObject::connect(lightShowButton, &QPushButton::clicked, [this]() {
     params.putBool("DoLightshow", true);
   });
   addItem(lightShowButton);
